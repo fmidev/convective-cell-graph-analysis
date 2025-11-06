@@ -53,7 +53,7 @@ Then, download the provided data from [FMI METIS repository](https://doi.org/10.
 pg_dump --no-owner --no-privileges -C --format=t --blobs --verbose --user <username> --file "<filename.tar>" <database-name>
 ```
 
-- A folder `cell_graph_data_v20250827` that contains the cell track graphs and subgraph graphs used in the manuscript.
+- A tar file `cell_subgraph_data_v20251105.tar` that contains the subgraph graphs used in the manuscript.
 
 Use the instructions below to restore the database. The article figures can then be plotted by using the notebook [plot_article_figures.ipynb](notebooks/plot_article_figures.ipynb) and the case study figures in the notebook [plot_case_study_figures.ipynb](notebooks/plot_case_study_figures.ipynb).
 
@@ -85,12 +85,12 @@ export DB_PASSWD=<your-database-password>
 
 ### Restore cell graph data
 
-1. Unpack the `cell_graph_data_v20250827.tar` file to a folder of your choice.
+1. Unpack the `cell_subgraph_data_v20251105.tar` file to a folder of your choice.
 
 2. To re-plot the figures in the manuscript, adjust the paths in [`notebooks/plot_article_figures.ipynb`](notebooks/plot_article_figures.ipynb)
 
 - in 3rd cell, set the `OUTPATH` variable to the path where you want to store the output figures.
-- in 6th cell, set the `storagepath` variable to the path where you unpacked the `cell_graph_data_v20250827` folder.
+- in 6th cell, set the `storagepath` variable to the path where you unpacked the `cell_subgraph_data_v20251105.tar` file.
 
 ## Workflow to re-create the analysis for your own data
 
