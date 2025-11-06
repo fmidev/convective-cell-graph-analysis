@@ -2,11 +2,11 @@
 
 This repository contains code for the manuscript
 
-TODO: Add actual title
+> Analysis of convective cell development with split and merge events using a graph-based methodology
 
-> Manuscript title
+by Ritvanen et al., submitted to Atmospheric Measurement Techniques.
 
-To investigate the analysis results provided in the manuscript, you can restore the data provided with the manuscript on (ADD LINK). Instruction for this are provided in the section "Restoring data provided with manuscript" below.
+To investigate the analysis results provided in the manuscript, you can restore the data provided with the manuscript on [FMI METIS repository](https://doi.org/10.57707/fmi-b2share.ac2197da4a034d21bee1fd9cb75ecfaf). Instruction for this are provided in the section "Restoring data provided with manuscript" below.
 
 Workflow to re-create the analysis in the manuscript is the following. Each step is described in more detail in this README.
 
@@ -45,7 +45,7 @@ All instructions below assume that you have a working installation of PostgreSQL
 
 First, follow step 1 to create conda environments with the required packages.
 
-Then, download the provided data from (ADD LINK) and unzip it to a folder of your choice. The data contains:
+Then, download the provided data from [FMI METIS repository](https://doi.org/10.57707/fmi-b2share.ac2197da4a034d21bee1fd9cb75ecfaf) and unzip it to a folder of your choice. The data contains:
 
 - A PostgreSQL database dump file `raincells_db_dump.tar` that contains the cell tracking results and extracted cell features for the Swiss radar data used in the manuscript. The database was dumped with the command
 
