@@ -1,0 +1,79 @@
+input:
+  file: "%Y%m%d%H%M%S_config_3d_v2.1_2d_1db_jenna.npy.gz"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/zdrcol/ZDR_COLUMN_GRIDS/%Y/%m/%d"
+  variable: "zdr_column_grid"
+  title: "Zdr column height (grids) [km]"
+  coord_system: "euler"
+  normalize: true
+  cmap_qty: "zdr_column"
+  file_timestamp: "exact"
+  reader_func: npy_to_dataset
+  theoretical_min: 0.0
+  theoretical_max: 200000.0
+  tick_minor_locator_multiple: 250
+
+output:
+  file: "%Y%m%d%H%M%S_config_3d_v2.1_2d_1db_jenna.npy.gz"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/zdrcol/ZDR_COLUMN_CUSTOM_FILTER_v20250514/%Y/%m/%d"
+  variable: "zdr_column_filtered"
+  overwrite: false
+
+filtering_data:
+  MaxEcho:
+    file: "CZC%y%j%H%MVL.*"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/MaxEcho/%Y/%m/%d"
+    variable: "MAX_ECHO"
+    title: "Z$_\\mathrm{max}$ [dBZ]"
+    coord_system: "euler"
+    normalize: true
+    difference: true
+    cmap_qty: "MAX_DBZH"
+    file_timestamp: "exact"
+    reader_func: metranet_to_dataset
+    theoretical_min: 0.1
+    theoretical_max: 200.0
+    tick_minor_locator_multiple: 5
+  ET20ML:
+    file: "ET20ML_%Y%m%d%H%M.nc"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+    variable: "echotop_20_over_ml"
+    title: "Echo top 20 dBZ above 0°C level [km]"
+    coord_system: "euler"
+    normalize: true
+    cmap_qty: "H_ml"
+    file_timestamp: "exact"
+    reader_func: null
+    theoretical_min: 0.0
+    theoretical_max: 200000.0
+    tick_minor_locator_multiple: 500
+  ET15ML:
+    file: "ET15ML_%Y%m%d%H%M.nc"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+    variable: "echotop_15_over_ml"
+    title: "Echo top 15 dBZ above 0°C level [km]"
+    coord_system: "euler"
+    normalize: true
+    cmap_qty: "H_ml"
+    file_timestamp: "exact"
+    reader_func: null
+    theoretical_min: 0.0
+    theoretical_max: 200000.0
+    tick_minor_locator_multiple: 500
+
+filtering_conditions:
+  cond_1:
+    variable: "MAX_ECHO"
+    type: "accept_range"
+    min: 30.0
+    max: null
+  cond_2:
+    variable: "echotop_20_over_ml"
+    type: "accept_smaller_than"
+  cond_3:
+    variable: "zdr_column_grid"
+    type: "accept_range"
+    min: 800.0
+    max: 3000.0
+  cond_4:
+    type: "contiguity"
+    pixel_count: 5

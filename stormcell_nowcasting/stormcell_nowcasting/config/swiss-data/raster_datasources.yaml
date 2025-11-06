@@ -1,0 +1,201 @@
+# common options for all datasources
+common:
+  # time step between successive radar measurements
+  timestep: 5
+
+# example definitions for different data sources found in the FMI radar archive
+
+# example configuration
+# quantity_name:
+#  # path format
+#  # f-string, may contain the variables: year, month, day
+#  path:
+#  # file name format
+#  # f-string, may contain the variables: year, month, day, hour, minute
+#  filename: "T_PABH21_C_EUOC_{year}{month:02d}{day:02d}{hour:02d}{minute:02d}{second:02d}.hdf"
+#  # the importer to use for reading the data
+#  importer:
+#  # multiplier and offset applied to the data: data_scaled = scale * data + offset
+#  scale:
+#  offset:
+#  # "nodata" value corresponding to not detected/missing values
+#  nodata:
+#  # optional values to substitute
+#  subs:
+#    x: y
+#  # use this option if new data is provided on a hourly basis instead of the
+#  # time step between the radar measurements
+#  hourly: true
+#  # apply clutter mask and gauge corrections
+#  apply_corrections: false
+
+rate:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/rainrate/%Y/%m/%d"
+  filename: "RZC%y%j%H%MVL.*"
+  importer: metranet
+  apply_corrections: false
+
+max_echo:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/MaxEcho/%Y/%m/%d"
+  filename: "CZC%y%j%H%MVL.*"
+  importer: metranet
+  apply_corrections: false
+
+vil:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/VIL/%Y/%m/%d"
+  filename: "LZC%y%j%H%MVL.*"
+  importer: metranet
+  apply_corrections: false
+  importer_kwargs:
+    min_value: 1.0
+
+et45:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d"
+  filename: "EZC%y%j%H%MVL.845"
+  importer: metranet
+  apply_corrections: false
+
+et20:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d"
+  filename: "EZC%y%j%H%MVL.820"
+  importer: metranet
+  apply_corrections: false
+
+et15:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d"
+  filename: "EZC%y%j%H%MVL.815"
+  importer: metranet
+  apply_corrections: false
+
+et45ml: &et45ml
+  filename: "ET45ML_%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    hardcode_swiss_projection: true
+    min_value: 0.0
+    flipud: true
+
+et45ml_unique_d1: *et45ml
+et45ml_unique_d3: *et45ml
+et45ml_unique_d5: *et45ml
+et45ml_d1: *et45ml
+et45ml_d3: *et45ml
+et45ml_d5: *et45ml
+
+et20ml:
+  filename: "ET20ML_%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    hardcode_swiss_projection: true
+    min_value: 0.0
+    flipud: true
+
+et15ml:
+  filename: "ET15ML_%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    hardcode_swiss_projection: true
+    min_value: 0.0
+    flipud: true
+
+zdr:
+  filename: "PL%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/polarimetric/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    variable: "ZDR_CORR"
+    hardcode_swiss_projection: true
+    flipud: true
+
+kdp:
+  filename: "PL%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/polarimetric/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    variable: "KDP"
+    hardcode_swiss_projection: true
+    flipud: true
+
+rhohv:
+  filename: "PL%Y%m%d%H%M.nc"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/polarimetric/%Y/%m/%d"
+  importer: netcdf
+  apply_corrections: false
+  importer_kwargs:
+    variable: "RHOHV"
+    hardcode_swiss_projection: true
+    flipud: true
+
+# fzt5min:
+#   filename: "COSMO_iso0_%Y%m%d%H%M.nc"
+#   path: "/cephfs/archive/ras_projects/jenna/swiss-data/COSMO_iso0/%Y/%m/%d"
+#   importer: netcdf
+#   apply_corrections: false
+#   importer_kwargs:
+#     variable: "HGHT"
+#     hardcode_swiss_projection: true
+
+fzt1h:
+  filename: "HZT%y%j%H000L.800"
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/freezing_level/%Y/%m/%d"
+  importer: metranet
+  apply_corrections: false
+
+zdrcol_custom_filt: &zdrcol_custom_filt
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/zdrcol/ZDR_COLUMN_CUSTOM_FILTER_v20250514/%Y/%m/%d"
+  filename: "%Y%m%d%H%M%S_config_3d_v2.1_2d_1db_jenna.npy.gz"
+  importer: zdrcol_npz
+  apply_corrections: false
+
+zdrcol_custom_filt_unique_d1: *zdrcol_custom_filt
+zdrcol_custom_filt_unique_d3: *zdrcol_custom_filt
+zdrcol_custom_filt_unique_d5: *zdrcol_custom_filt
+zdrcol_custom_filt_d1: *zdrcol_custom_filt
+zdrcol_custom_filt_d3: *zdrcol_custom_filt
+zdrcol_custom_filt_d5: *zdrcol_custom_filt
+
+zdrcol_grids:
+  path: "/cephfs/archive/ras_projects/jenna/swiss-data/zdrcol/ZDR_COLUMN_GRIDS/%Y/%m/%d"
+  filename: "%Y%m%d%H%M%S_config_3d_v2.1_2d_1db_jenna.npy.gz"
+  importer: zdrcol_npz
+  apply_corrections: false
+# trendss_max:
+#   filename: "TRENDSS_%Y%m%d%H%M.nc"
+#   path: "/cephfs/archive/ras_projects/jenna/swiss-data/trendss/%Y/%m/%d"
+#   importer: netcdf
+#   apply_corrections: false
+#   importer_kwargs:
+#     variable: "zdr_anomaly_total_max"
+#     hardcode_swiss_projection: true
+
+qind_ami:
+  filename: ami
+  path: "/data/jenna/radar_quality_fields"
+  importer: quality_field
+  apply_corrections: false
+
+qind_ama:
+  filename: ama
+  path: "/data/jenna/radar_quality_fields"
+  importer: quality_field
+  apply_corrections: false
+
+qind_vv:
+  filename: vv
+  path: "/data/jenna/radar_quality_fields"
+  importer: quality_field
+  apply_corrections: false
+
+qind_rr:
+  filename: rr
+  path: "/data/jenna/radar_quality_fields"
+  importer: quality_field
+  apply_corrections: false

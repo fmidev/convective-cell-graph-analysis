@@ -1,0 +1,214 @@
+# Configurations for plotting example nowcasts
+outdir: /data/jenna/rain-cell-stats-analysis/figures/case-studies-article-kuvituskuvia/%Y%m%d%H%M/
+# figsize: [25, 28]
+figsize: null
+row_height: 4
+col_width: 2
+filename: "input_data_%Y%m%d%H%M.png"
+ext: "png"
+stylefile: stylefiles/presentation.mplstyle
+dpi: 300
+n_images: 8
+# n_images: 144
+freq: 5min
+tick_spacing: 100 # [km]
+n_cascade_levels: 4
+cascade_filter_kwargs:
+  gauss_scale: 0.5
+  d: 1.0
+  normalize: true
+  return_weight_funcs: false
+  include_mean: true
+num_workers: 1
+im_size: [640, 710]
+make_gif: false
+duration_per_frame: 0.5
+
+# zoom_bbox: [0.422, 0.704, 0.31, 0.625]
+# Case 202107131200
+# zoom_bbox: [0.422, 0.9859, 0.15625, 0.78125]
+# For case 2022-06-07T17:35:00_3, using bbox [0.725, 0.823, 0.312, 0.413]
+# plot_bbox: [0.725, 0.823, 0.312, 0.413]
+# zoom_bbox: [0.725, 0.823, 0.312, 0.413]
+# For case 2021-07-13T09:35:00_12, using bbox [0.619, 0.737, 0.332, 0.492]
+# plot_bbox: [0.619, 0.737, 0.332, 0.492]
+# plot_bbox: [0.619, 0.737, 0.332, 0.492]
+zoom_bbox: null
+# zoom_bbox: [0.422, 0.8450, 0.15625, 0.625]
+# zoom_bbox: [0.5634, 0.70422, 0.3125, 0.625]
+plot_bbox: null
+bbox_plot_kwargs:
+  color: "#e7298a"
+  lw: 1
+  ls: "solid"
+  alpha: 1.0
+
+plot_cells: true
+default_cell_plot_kwargs:
+  linewidth: 0.8
+  edgecolor: "black"
+  facecolor: "none"
+  alpha: 1.0
+cell_options:
+  opencv_vil_1.0:minArea_10:clusters_0:
+    split:
+      plot_kwargs:
+        edgecolor: "tab:orange"
+    merged:
+      plot_kwargs:
+        edgecolor: "tab:orange"
+    split_merge:
+      plot_kwargs:
+        edgecolor: "tab:orange"
+
+  # no_tracks:
+  #   # For each cell method, plot also a version without tracks
+  #   plot_kwargs:
+  #     linewidth: 0.8
+  #     edgecolor: "tab:red"
+  #     facecolor: "none"
+  #     alpha: 1.0
+
+cell_tracks:
+  # storage_path: /data/jenna/rain-cell-stats-analysis/cell_tracks
+  storage_path: /data/jenna/rain-cell-stats-analysis/cell_graph_data_v20250815
+  # case 1
+  simple_tracks_fileglob: "cell_trajectories_202206070000_202206080000.parquet"
+  # case 2
+  # simple_tracks_fileglob: "cell_trajectories_202107130000_202107140000.parquet"
+
+cell_database_config:
+  host:
+  port: 5432
+  database: cell_graph_publish
+  schema: raincells
+  table: stormcells
+
+plot_map: true
+plot_qty_title: true
+plot_cbar: true
+map_params:
+  # Map shape file that is plotted
+  border_shapefile: /data/jenna/shapefiles/swiss_borders/Border_CH.shp
+  border_plot_kwargs:
+    color: "tab:gray"
+    linewidth: 0.5
+  radar_shapefile: /data/jenna/shapefiles/swiss_radars/swiss_radars.shp
+  radar_limits:
+    limit_140km:
+      shapefile: /data/jenna/shapefiles/swiss_radars/swiss_radars_boundary_140km.json
+      plot_kwargs:
+        color: "tab:gray"
+        linewidth: 0.5
+        linestyle: "dashed"
+  radar_plot_kwargs:
+    color: "black"
+    edgecolor: "white"
+    linewidth: 0.5
+    s: 20
+    marker: "X"
+  # Projection of data
+  proj: "+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs"
+
+plot_empty_data: false
+plot_variables: [
+    zdrcol_custom_filt,
+    RATE,
+    # MaxEcho,
+    # ET45ML,
+    VIL,
+  ]
+input_data:
+  area:
+    variable: "RATE"
+    title: "Cell area [km$^{1}$]"
+    html_title: "Cell area [km<sup>2</sup>]"
+    cmap_qty: "area"
+
+  RATE:
+    file: "RZC%y%j%H%MVL.*"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/rainrate/%Y/%m/%d"
+    variable: "RATE"
+    title: "R [mm h$^{-1}$]"
+    html_title: "R [mm h<sup>-1</sup>]"
+    coord_system: "euler"
+    normalize: true
+    difference: true
+    cmap_qty: "R_log_high"
+    file_timestamp: "exact"
+    reader_func: metranet_to_dataset
+    theoretical_min: 0.1
+    theoretical_max: 200.0
+  VIL:
+    file: "LZC%y%j%H%MVL.*"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/VIL/%Y/%m/%d"
+    variable: "VIL"
+    title: "VIL [kg m$^{-2}$]"
+    html_title: "VIL [kg m<sup>-2</sup>]"
+    coord_system: "euler"
+    normalize: true
+    difference: true
+    cmap_qty: "VIL"
+    file_timestamp: "exact"
+    reader_func: metranet_to_dataset
+    theoretical_min: 0.1
+    theoretical_max: 200
+    tick_minor_locator_multiple: 0.5
+  MaxEcho:
+    file: "CZC%y%j%H%MVL.*"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/MaxEcho/%Y/%m/%d"
+    variable: "MAX_ECHO"
+    title: "Z$_\\mathrm{max}$ [dBZ]"
+    html_title: "Z<sub>max</sub> [dBZ]"
+    coord_system: "euler"
+    normalize: true
+    difference: true
+    cmap_qty: "MAX_DBZH"
+    file_timestamp: "exact"
+    reader_func: metranet_to_dataset
+    theoretical_min: 0.1
+    theoretical_max: 200.0
+    tick_minor_locator_multiple: 5
+
+  zdrcol_custom_filt:
+    file: "%Y%m%d%H%M%S_config_3d_v2.1_2d_1db_jenna.npy.gz"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/zdrcol/ZDR_COLUMN_CUSTOM_FILTER_v20250514/%Y/%m/%d"
+    variable: "zdr_column_filtered"
+    title: "Zdr column height [km]"
+    html_title: "Zdr column height [km]"
+    coord_system: "euler"
+    normalize: true
+    cmap_qty: "zdr_column"
+    file_timestamp: "exact"
+    reader_func: npy_to_dataset
+    theoretical_min: 0.0
+    theoretical_max: 200000.0
+
+  ET45ML:
+    file: "ET45ML_%Y%m%d%H%M.nc"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d"
+    variable: "echotop_45_over_ml"
+    title: "Echo top 45 dBZ \nabove 0°C level [km]"
+    html_title: "Echo top 45 dBZ \nabove 0°C level [km]"
+    coord_system: "euler"
+    normalize: true
+    cmap_qty: "H_ml"
+    file_timestamp: "exact"
+    reader_func: null
+    theoretical_min: 0.0
+    theoretical_max: 200000.0
+    tick_minor_locator_multiple: 500
+  ET45:
+    file: "EZC%y%j%H%MVL.845"
+    path: "/cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d"
+    variable: "echotop_45"
+    title: "Echo top 45 dBZ [km]"
+    html_title: "Echo top 45 dBZ [km]"
+    coord_system: "euler"
+    normalize: true
+    cmap_qty: "H"
+    file_timestamp: "exact"
+    reader_func: metranet_to_dataset
+    theoretical_min: 0.0
+    theoretical_max: 200000.0
+    tick_minor_locator_multiple: 500

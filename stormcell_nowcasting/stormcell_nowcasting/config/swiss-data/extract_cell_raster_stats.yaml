@@ -1,0 +1,122 @@
+# the type of the cells to track (i.e. the method that was used for identifying
+# the cells), see identify_storm_cells.yaml
+# the format is contour_<quantity>_<threshold>
+cell_identification_methods: ["opencv_vil_1.0:minArea_10:clusters_0"]
+
+output:
+  # list of quantities for which to compute the cell statistics
+  # the quantities are specified in raster_datasources.yaml
+  # quantities: rate,et45,et20
+  # quantities: fzt1h
+  # quantities: rate,max_echo,vil,zdrcol_custom_filt,et45,et20,et15,et15ml,et45ml,et20ml,zdr,kdp,rhohv,fzt1h
+  quantities:
+    # - et45ml_unique_d1
+    # - et45ml_unique_d3
+    # - et45ml_unique_d5
+    # - et45ml_d1
+    # - et45ml_d3
+    # - et45ml_d5
+    # - zdrcol_custom_filt_unique_d1
+    # - zdrcol_custom_filt_unique_d3
+    # - zdrcol_custom_filt_unique_d5
+    - zdrcol_custom_filt_d1
+    - zdrcol_custom_filt_d3
+    - zdrcol_custom_filt_d5
+  # quantities: et45ml,et20ml,et15ml,rhohv,zdr,kdp
+  # quantities: rate,et45ml,et45,vil,zdrcol_custom_filt
+  # quantities: et20ml,et15ml #,vil
+  # quantities: fzt1h
+  # quantities: qind_ami,qind_ama,qind_vv,qind_rr
+  # the statistics to compute
+  # see the documentation of rasterstats.zonal_stats
+  stats: mean,min,max,std,median,sum,percentile_95,count
+  quantities_from_overlapping_areas:
+    zdrcol_custom_filt: &zdrcol_custom_filt
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_unique_d1:
+      threshold: 0.0
+      dilation_kernel_size: 1
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_unique_d3:
+      threshold: 0.0
+      dilation_kernel_size: 3
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_unique_d5:
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_d1:
+      threshold: 0.0
+      dilation_kernel_size: 1
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_d3:
+      threshold: 0.0
+      dilation_kernel_size: 3
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+    zdrcol_custom_filt_d5:
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+
+    et45ml: &et45ml
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    et45ml_unique_d1:
+      threshold: 0.0
+      dilation_kernel_size: 1
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    et45ml_unique_d3:
+      threshold: 0.0
+      dilation_kernel_size: 3
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    et45ml_unique_d5:
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: true
+      zonal_stats_all_touched: true
+    et45ml_d1:
+      threshold: 0.0
+      dilation_kernel_size: 1
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+    et45ml_d3:
+      threshold: 0.0
+      dilation_kernel_size: 3
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+    et45ml_d5:
+      threshold: 0.0
+      dilation_kernel_size: 5
+      assign_to_unique_cell: false
+      zonal_stats_all_touched: true
+
+database:
+  # number of entries to keep in memory before inserting them to the database
+  commit_size: 1000
+
+parallelization:
+  # number of parallel workers to use
+  num_workers: 1
+  # maximum chunk length when splitting the date range for parallel computation
+  # applicable if num_workers > 1
+  max_chunk_len:
+
+# logging options
+logging:
+  # level: debug, info, warning, error or critical
+  level: info
+  # output file (leave empty to print to console)
+  output_file:

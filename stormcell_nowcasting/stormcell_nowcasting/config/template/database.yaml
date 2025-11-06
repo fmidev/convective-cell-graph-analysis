@@ -1,0 +1,16 @@
+# type of database to use: postgresql or sqlite
+database_type: postgresql
+# host server
+host:
+# database name (PostgreSQL)
+database:
+# user name
+user:
+# password
+password:
+# PROJ-compatible projection definition or coordinate system identifier (i.e.
+# EPSG code) for the stored geometries, e.g.
+# lon-lat: 4326
+# Finnish map projection: 3067
+# OPERA: +proj=laea +lat_0=55.0 +lon_0=10.0 +x_0=1950000.0 +y_0=-2100000.0 +units=m +ellps=WGS84
+projection:

@@ -1,0 +1,57 @@
+# common options for all datasources
+common:
+  # time step between successive radar measurements
+  timestep: 5
+
+# example definitions for different data sources found in the FMI radar archive
+
+# example configuration
+# quantity_name:
+#  # path format
+#  # f-string, may contain the variables: year, month, day
+#  path:
+#  # file name format
+#  # f-string, may contain the variables: year, month, day, hour, minute
+#  filename: "T_PABH21_C_EUOC_{year}{month:02d}{day:02d}{hour:02d}{minute:02d}{second:02d}.hdf"
+#  # the importer to use for reading the data
+#  importer:
+#  # multiplier and offset applied to the data: data_scaled = scale * data + offset
+#  scale:
+#  offset:
+#  # "nodata" value corresponding to not detected/missing values
+#  nodata:
+#  # optional values to substitute
+#  subs:
+#    x: y
+#  # use this option if new data is provided on a hourly basis instead of the
+#  # time step between the radar measurements
+#  hourly: true
+#  # apply clutter mask and gauge corrections
+#  apply_corrections: false
+
+# reflectivity
+z:
+  path: "/arch/radar/raw/{year}/{month:02d}/{day:02d}/eu_compo/Odyssey"
+  filename: "T_PABH21_C_EUOC_{year}{month:02d}{day:02d}{hour:02d}{minute:02d}{second:02d}.hdf"
+  importer: opera_odim_hdf5
+  apply_corrections: false
+
+# convective available potential energy (CAPE) from ERA5 reanalyses
+cape:
+  path:
+  filename: "{year}{month:02d}{day:02d}{hour:02d}{minute:02d}_cape.tif"
+  importer: geotiff
+  hourly: true
+
+# convective inhibition (CIN) from ERA5 reanalyses
+cin:
+  path:
+  filename: "{year}{month:02d}{day:02d}{hour:02d}{minute:02d}_cin.tif"
+  importer: geotiff
+  hourly: true
+
+# population density (inhabitants / km^2)
+popdensity: JRC_1K_POP_2018.tif
+  path:
+  filename:
+  importer: geotiff

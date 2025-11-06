@@ -1,0 +1,43 @@
+track_graphs:
+  # Path where graph files are stored by `query_storm_track_graphs.py`
+  storagepath: "/data/jenna/rain-cell-stats-analysis/cell_graphs_v20250604/{method}_%Y%m%d"
+  graph_filename_template: "track_graph_{method}_{min_timestamp}_{max_timestamp}_{identifier}.gml"
+  # Minimum duration of cell tracks to be processed
+  min_duration: 10
+  # How many steps to hop when searching for predecessors and successors
+  num_steps_to_hop: 6
+
+trajectory_selection:
+  # Whether to store trajectories for splits and merges
+  select_split_merges: true
+  # Whether to filter cells based on conditions defined in a YAML file
+  select_cell_conditions: false
+  # What is the maximum distance in km from closest radar to consider a cell
+  # when filtering cells based on distance from radar
+  predecessors_distance_limit: 140
+  # Path to YAML file where the filtering conditions for cells are defined
+  cell_condition_filepath: null
+  # whether to drop values selected from database before storing
+  # to cell trajectories file to reduce file size
+  drop_database_values: true
+
+subgraphs:
+  # Path where trajectory graph files are stored
+  subgraph_storagepath: "/data/jenna/rain-cell-stats-analysis/cell_graph_data_v20250827/subgraphs/{timestamp}"
+  # Whether to store subgraphs for each trajectory
+  store_subgraphs: true
+
+output:
+  # Path to folder where to store the trajectory data files
+  storagepath: /data/jenna/rain-cell-stats-analysis/cell_graph_data_v20250827
+  # Whether to overwrite existing files
+  overwrite_existing: true
+  # Subfolder for intermediate files
+  intermediate_subfolder: intermediate
+  # Filenames for intermediate and final files
+  all_trajectories_intermediate_filename: "{graph_name}_{type}.parquet"
+  filtered_trajectories_intermediate_filename: "{graph_name}_{type}.parquet"
+  all_trajectories_filename: "cell_trajectories_{startdate}_{enddate}.parquet"
+  filtered_trajectories_filename: "cell_trajectories_filtered_{startdate}_{enddate}.parquet"
+  # How long chunks of data to save at final output files
+  save_interval: "1d"

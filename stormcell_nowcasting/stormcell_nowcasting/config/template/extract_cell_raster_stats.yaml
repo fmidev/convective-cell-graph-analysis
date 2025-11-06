@@ -1,0 +1,30 @@
+# the type of the cells to track (i.e. the method that was used for identifying
+# the cells), see identify_storm_cells.yaml
+# the format is contour_<quantity>_<threshold>
+cell_identification_method: contour_z_35
+
+output:
+  # list of quantities for which to compute the cell statistics
+  # the quantities are specified in raster_datasources.yaml
+  quantities: acrr,cape,cin,z,popdensity
+  # the statistics to compute
+  # see the documentation of rasterstats.zonal_stats
+  stats: mean,max
+
+database:
+  # number of entries to keep in memory before inserting them to the database
+  commit_size: 1000
+
+parallelization:
+  # number of parallel workers to use
+  num_workers: 1
+  # maximum chunk length when splitting the date range for parallel computation
+  # applicable if num_workers > 1
+  max_chunk_len:
+
+# logging options
+logging:
+  # level: debug, info, warning, error or critical
+  level: warning
+  # output file (leave empty to print to console)
+  output_file:

@@ -1,0 +1,68 @@
+# cell identification method
+# the currently implemented option is 'contour'
+cell_identification_method: contour
+# contour detection method: opencv or skimage
+# applicable if cell_identification_method is 'contour'
+contour_method: opencv
+contour_method_name: "opencv"
+required_orientation: ccw
+
+# contour thresholds for different quantities
+contour_thresholds:
+  # rate: [
+  #     # 2.1, # 30dBZ
+  #     # 3.0, # 32dBZ
+  #     4.6, # 35dBZ
+  #     # 5.4, # 36dBZ
+  #     # 6.4, # 37dBZ
+  #     # 10.0, # 40dBZ
+  #   ]
+  vil: [1.0]
+
+# optional keyword arguments for the contour extractor
+# see the methods implemented in cell_identification/contour.py
+contour_extractor_kwargs:
+  gaussfilter_stddev: 0.25
+  close_kernel_size: [3, 3]
+
+# criteria for selecting the cells that are inserted to the database
+criteria:
+  # minimum cell area (km^2)
+  # min_area: [5, 10, 15, 25, 50]
+  min_area: [10]
+
+# options for simplification of the cell polygons
+# this is done by using the simplify method implemented in shapely, see
+# https://shapely.readthedocs.io/en/stable/manual.html
+simplification:
+  tolerance: 0.01
+  preserve_topology: 1
+
+# options for spatial clustering of storm cells before storing them to database
+clustering:
+  # maximum distance between cells that are considered to belong to the same
+  # cluster (km)
+  # set to 0 to disable clustering
+  # max_cell_distance: [0, 1, 5, 10, 15, 20]
+  max_cell_distance: [0]
+
+database:
+  # delete existing database entries from the given time range before starting
+  # the cell identification
+  delete_existing: true
+  # number of storm cells to keep in memory before inserting to the database
+  commit_size: 1000
+
+parallelization:
+  # number of parallel workers to use
+  num_workers: 10
+  # maximum chunk length when splitting the date range for parallel computation
+  # applicable if num_workers > 1
+  max_chunk_len: 288
+
+# logging options
+logging:
+  # level: debug, info, warning, error or critical
+  level: info
+  # output file (leave empty to print to console)
+  output_file:

@@ -1,0 +1,50 @@
+melting_level:
+  type: "metranet"
+  # Input directory, with substitutions for `year`, `month`, `day` and `grid`
+  inputpath: /cephfs/archive/ras_projects/jenna/swiss-data/freezing_level/%Y/%m/%d
+  # Input filename, with substitutions for `year`, `month`, `day`, `hour`, `minute`
+  inputfilename: "HZT%y%j%H000L.800"
+
+replace: False
+
+echo_top:
+  etop20:
+    input:
+      # Input directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d
+      filename: EZC%y%j%H%MVL.*20*
+    output:
+      # Output directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d
+      filename: "ET20ML_%Y%m%d%H%M.nc"
+  etop15:
+    input:
+      # Input directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d
+      filename: EZC%y%j%H%MVL.*15*
+    output:
+      # Output directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d
+      filename: "ET15ML_%Y%m%d%H%M.nc"
+  etop45:
+    input:
+      # Input directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d
+      filename: EZC%y%j%H%MVL.*45*
+    output:
+      # Output directory path and filename format
+      path: /cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d
+      filename: "ET45ML_%Y%m%d%H%M.nc"
+  # etop50:
+  #   input:
+  #     # Input directory path and filename format
+  #     path: /cephfs/archive/ras_projects/jenna/swiss-data/echotop/%Y/%m/%d
+  #     filename: EZC%y%j%H%MVL.*50*
+  #   output:
+  #     # Output directory path and filename format
+  #     path: /cephfs/archive/ras_projects/jenna/swiss-data/ETML_v2/%Y/%m/%d
+  #     filename: "ET50ML_%Y%m%d%H%M.nc"
+
+projection:
+  # File with the projection that the result is projected to
+  sample_file: "/cephfs/archive/ras_projects/jenna/swiss-data/trendss/2023/05/01/TRENDSS_202305012000.nc"

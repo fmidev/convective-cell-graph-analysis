@@ -1,0 +1,52 @@
+name: raincells
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - matplotlib=3.6.3
+  - pandas
+  - cartopy
+  - gdal
+  - wradlib
+  - xmltodict
+  - shapely
+  - dask
+  - bokeh
+  - imageio
+  - scikit-learn
+  - ca-certificates
+  - openssl
+  - ipdb
+  - certifi
+  - rioxarray
+  - xarray
+  - rasterio
+  - cmcrameri=1.9
+  - seaborn
+  - arrow
+  # - addict=2.3.0
+  - metpy
+  - libnetcdf
+  - tobac
+  - geopandas
+  - scikit-image
+  - palettable
+  - zarr
+  - opencv
+  - pip
+  - sqlalchemy
+  - psycopg2
+  - pyproj
+  - pyyaml
+  - geoalchemy2
+  - networkx
+  - fiona
+  - rasterstats
+  - easydict
+  - arm_pyart
+  - polars
+  - tqdm
+  - numba
+  - pip:
+      - distinctipy

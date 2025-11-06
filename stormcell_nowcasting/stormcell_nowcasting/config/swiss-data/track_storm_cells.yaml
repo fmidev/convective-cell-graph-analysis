@@ -1,0 +1,52 @@
+# the type of the cells to track (i.e. the method that was used for identifying
+# the cells), see identify_storm_cells.yaml
+# the format is contour_<quantity>_<threshold>
+cell_identification_method: ["opencv_vil_1.0:minArea_10:clusters_0"]
+
+cell_query_kwargs:
+  # the thresholds for the cell query
+  - null
+  # - exp_name: minArea25
+  #   kwargs:
+  #     min_area: 25.0e+6
+
+# minimum overlap percentage for two cells that are counted as matching
+overlap_thr: 0.1
+
+# configuration options for optical flow
+oflow:
+  # the quantity to use for estimating the optical flow
+  quantity: rate
+
+# configuration of the Farneback optical flow for estimating cell velocities
+oflow_params:
+  filter_stddev: 0
+  pyr_scale: 0.5
+  levels: 6
+  winsize: 200
+  iterations: 10
+  poly_n: 7
+  poly_sigma: 1.5
+  minval: 0
+
+database:
+  # delete existing database entries from the given time range before starting
+  # the cell tracking
+  delete_existing: true
+  # number of matched storm cells to keep in memory before inserting to the
+  # database
+  commit_size: 1000
+
+parallelization:
+  # number of parallel workers to use
+  num_workers: 10
+  # maximum chunk length when splitting the date range for parallel computation
+  # applicable if num_workers > 1
+  max_chunk_len: 288
+
+# logging options
+logging:
+  # level: debug, info, warning, error or critical
+  level: info
+  # output file (leave empty to print to console)
+  output_file: /home/users/ritvanen/koodaus/rain-cell-stats-analysis/logs/track_storm_cells.log

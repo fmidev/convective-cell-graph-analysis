@@ -1,0 +1,13 @@
+cell_database:
+  host:
+  port: 5432
+  database: cell_graph_publish
+  schema: raincells
+  table: raincells.cells_with_parents_children_20250509
+
+# The time range for the tracks
+settings:
+  cell_identification_methods: ["opencv_vil_1.0:minArea_10:clusters_0"]
+
+output:
+  storage_path: /data/jenna/rain-cell-stats-analysis/cell_graphs_v20250604
