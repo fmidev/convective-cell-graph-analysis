@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+title: Graph-based analysis of convective cell development
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Jenna
+    family-names: Ritvanen
+    email: jenna.ritvanen@fmi.fi
+    affiliation: Finnish Meteorological Institute
+    orcid: 'https://orcid.org/0000-0002-0662-0839'
+repository-code: >-
+  "https://github.com/fmidev/convective-cell-graph-analysis
+abstract: >-
+  Code for the manuscript
+
+
+  Ritvanen, J., Aregger, M., Moisseev, D., Germann, U., Hering, A., Pulkkinen, S.
+  (2025): Analysis of convective cell development with split and 
+  merge events using a graph-based methodology
+
+
+  submitted to the Atmospheric Measurement Techniques journal.
+keywords:
+  - rainfall nowcasting
+  - cell tracking
+  - convective cell
+  - growth and decay
+license: MIT
