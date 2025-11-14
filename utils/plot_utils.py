@@ -290,13 +290,28 @@ def plot_array(
     else:
         args = (arr,)
 
-    ax.pcolormesh(
-        *args,
+    # (left, right, bottom, top)
+    extent = [xx.min(), xx.max(), yy.min(), yy.max()]
+
+    ax.imshow(
+        arr,
         cmap=cmap,
         norm=norm,
         zorder=zorder,
-        rasterized=True,
+        extent=extent,
+        origin="lower",
+        interpolation="none",
+        interpolation_stage="data",
+        rasterized=False,
     )
+    # ax.pcolormesh(
+    #     *args,
+    #     cmap=cmap,
+    #     norm=norm,
+    #     zorder=zorder,
+    #     rasterized=True,
+    #     snap=True,
+    # )
 
     cbar = None
     # Add colorbar

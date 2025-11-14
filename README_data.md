@@ -95,7 +95,7 @@ For examples of how to read and use the subgraph data, see the Jupyter notebook 
     ```json
     {
       "<subplot title": {
-        "Trajectory count [1000]": {
+        "Subgraph count [1000]": {
           "x": [<list of x values],
           "y": [<list of y values in 1000s]
         },

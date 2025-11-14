@@ -24,7 +24,7 @@ count_linekwargs = {
     "ls": "--",
     "lw": 1,
     "color": "black",
-    "label": "Trajectory count",
+    "label": "Subgraph count",
 }
 
 
@@ -337,7 +337,7 @@ def plot_trajectory_development(
     labels: list[str],
     colors: list[str],
     axs: plt.Axes = None,
-    count_linekwargs: dict = dict(color="tab:green", linestyle="--", label="Trajectory count"),
+    count_linekwargs: dict = dict(color="tab:green", linestyle="--", label="Subgraph count"),
     lineplot_kwargs: dict = {},
     count_multiply: float = 1000.0,
     plot_counts: bool = True,
@@ -361,7 +361,7 @@ def plot_trajectory_development(
     axs : plt.Axes, optional
         Matplotlib Axes object to plot on.
     count_linekwargs : dict, optional
-        Keyword arguments for the count line plot, by default dict(color="tab:green", linestyle="--", label="Trajectory count").
+        Keyword arguments for the count line plot, by default dict(color="tab:green", linestyle="--", label="Subgraph count").
     lineplot_kwargs : dict, optional
         Keyword arguments for the line plot in sns.lineplot, by default an empty dictionary.
     count_multiply : float, optional
@@ -432,7 +432,7 @@ def plot_trajectory_development(
             **count_linekwargs,
             **lineplot_kwargs,
         )
-        ax2.set_ylabel(f"Trajectory count [{count_multiply:.0f}]")
+        ax2.set_ylabel(f"Subgraph count [{count_multiply:.0f}]")
         ax2.label_outer()
         ax2.set_ylim(0, None)
 
@@ -488,7 +488,7 @@ def plot_trajectory_development_multigroup(
     estimator : str, optional
         Estimator to use for the line plot, e.g., "mean", "median".
     count_linekwargs : dict, optional
-        Keyword arguments for the count line plot, by default dict(color="tab:green", linestyle="--", label="Trajectory count").
+        Keyword arguments for the count line plot, by default dict(color="tab:green", linestyle="--", label="Subgraph count").
     lineplot_kwargs : dict, optional
         Keyword arguments for the line plot in sns.lineplot, by default an empty dictionary.
     add_cbar : bool, optional
