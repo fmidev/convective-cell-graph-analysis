@@ -21,7 +21,7 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS raincells.cells_with_parents_children_wit
         ON prev_cell."timestamp" = prev_cell_sc."timestamp" AND prev_cell."method" = prev_cell_sc."method" AND prev_cell."identifier" = prev_cell_sc."identifier"
 
     LEFT JOIN raincells.stormcells as next_cell_sc
-        ON next_cell."timestamp" = next_cell_sc."timestamp" AND next_cell."method" = next_cell_sc."method" AND next_cell."identifier" = next_cell_sc."identifier"
+        ON next_cell."timestamp" + interval '5 minutes' = next_cell_sc."timestamp" AND next_cell."method" = next_cell_sc."method" AND next_cell."next_identifier" = next_cell_sc."identifier"
 
     GROUP BY cur_cell.timestamp, cur_cell.identifier, cur_cell.method
 
